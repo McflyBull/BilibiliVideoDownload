@@ -4,14 +4,14 @@
     :visible="visible"
     :closable="false"
     :maskClosable="false"
-    title="请登录Bilibili"
+    title="Please login to Bilibili"
     :okText="handleOkText()"
     :okButtonProps="{ disabled: (activeTab === 1 && scanStatus !== 2 ) || (activeTab === 2 && !IPTSESSDATA) }"
-    cancelText="不登录"
+    cancelText="Don't login"
     @cancel="notLogin"
     @ok="login">
     <a-tabs v-model:activeKey="activeTab" centered>
-      <a-tab-pane :key="1" tab="扫码登录" force-render>
+      <a-tab-pane :key="1" tab="QR Code Login" force-render>
         <div class="login-box">
           <div class="qr-modal" v-if="!countDown">
             <SyncOutlined class="refresh" @click="createQrcode" />
@@ -19,13 +19,13 @@
           <img :src="imageBase64" alt="" />
         </div>
       </a-tab-pane>
-      <a-tab-pane :key="2" tab="手动输入">
+      <a-tab-pane :key="2" tab="Manual Input">
         <div class="login-box">
-          <a-input v-model:value="IPTSESSDATA" placeholder="输入你的SESSDATA">
+          <a-input v-model:value="IPTSESSDATA" placeholder="Enter your SESSDATA">
             <template #suffix>
               <a-tooltip>
                 <template #title>
-                  <a @click="openBrowser('https://github.com/blogwy/BilibiliVideoDownload/wiki/%E8%8E%B7%E5%8F%96SESSDATA')">点击此处</a>查看如何获取SESSDATA
+                  <a @click="openBrowser('https://github.com/blogwy/BilibiliVideoDownload/wiki/%E8%8E%B7%E5%8F%96SESSDATA')">Click here</a> to learn how to get SESSDATA
                 </template>
                 <InfoCircleOutlined style="color: rgba(0, 0, 0, 0.45)" />
               </a-tooltip>
@@ -34,7 +34,7 @@
         </div>
       </a-tab-pane>
     </a-tabs>
-    <div class="mt16 desc">注：软件登录后只会获取你的SESSDATA来用做下载，账号是普通账号下载1080P视频，大会员可以下载8K视频，不登录下载480P视频</div>
+    <div class="mt16 desc">Note: After login, the software will only use your SESSDATA for downloads. Regular accounts can download 1080P videos, VIP members can download 8K videos, without login max download is 480P</div>
   </a-modal>
 </template>
 
@@ -47,7 +47,7 @@ import { checkLogin } from '../../core/bilibili'
 import { store } from '../../store'
 
 const visible = ref<boolean>(false)
-// 0 未扫码 1 已扫码 2 已确认
+// 0 Not scanned 1 Scanned 2 Confirmed
 const scanStatus = ref<number>(0)
 const activeTab = ref<number>(1)
 const QRSESSDATA = ref<string>('')
@@ -59,11 +59,11 @@ const isCheck = ref<boolean>(true)
 let timer: any = null
 
 const handleOkText = () => {
-  const okText = ['未扫码', '已扫码', '确认登录']
+  const okText = ['Not scanned', 'Scanned', 'Confirm login']
   if (activeTab.value === 1) {
     return okText[scanStatus.value]
   } else {
-    return '确认登录'
+    return 'Confirm login'
   }
 }
 
@@ -83,17 +83,17 @@ const notLogin = () => {
 
 const login = async () => {
   console.log('login')
-  // 获取SESSDATA
+  // Get SESSDATA
   const SESSDATA = activeTab.value === 1 ? QRSESSDATA.value : IPTSESSDATA.value
   if (activeTab.value === 1 && !SESSDATA) {
-    message.error('请输入SESSDATA')
+    message.error('Please enter SESSDATA')
     return
   }
-  // 储存SESSDATA
+  // Store SESSDATA
   store.settingStore().setSESSDATA(SESSDATA)
-  // 验证SESSDATA
+  // Validate SESSDATA
   const status = await checkLogin(store.settingStore().SESSDATA)
-  // 储存LoginStatus
+  // Store LoginStatus
   store.baseStore().setLoginStatus(status)
   hide()
 }

@@ -2,7 +2,7 @@
   <div :class="['container fr', !taskList || !taskList.size ? 'ac jc' : 'bg-fff']">
     <a-empty v-if="!taskList || !taskList.size" :image="require('../assets/images/no-data.png')">
       <template #description>
-        <span class="text-active" style="font-weight: bold">暂无数据</span>
+        <span class="text-active" style="font-weight: bold">No data</span>
       </template>
     </a-empty>
     <template v-else>
@@ -20,7 +20,7 @@
           </div>
           <div class="content fc jsb">
             <div class="ellipsis-1">{{ value.title }}</div>
-            <div>状态：<span class="text-active">{{ formatDownloadStatus(value.status, 'label') }}</span></div>
+            <div>Status: <span class="text-active">{{ formatDownloadStatus(value.status, 'label') }}</span></div>
             <div>
               <a-progress :percent="value.progress" :status="formatDownloadStatus(value.status, 'value')" strokeColor="#fb7299"></a-progress>
             </div>
@@ -33,17 +33,17 @@
         </div>
         <div class="pl16 mt8 text-active" @click="openBrowser(rightTask.url)">{{ rightTask.title }}</div>
         <div class="fr ac pl16 mt8 up-list">
-          UP：<div v-for="(item, index) in rightTask.up" :key="index" class="mr16">
+          Uploader: <div v-for="(item, index) in rightTask.up" :key="index" class="mr16">
             <a class="ellipsis-1 up-name" @click="openBrowser(`https://space.bilibili.com/${item.mid}`)">{{ item.name }}</a>
           </div>
         </div>
-        <div class="mt8 pl16">创建时间：<span class="text-active">{{ dayjs(rightTask.createdTime).format('YYYY-MM-DD HH:mm:ss') }}</span></div>
-        <div class="mt8 pl16">视频大小：<span class="text-active">{{ formatVideoSize(rightTask.size) }}</span></div>
-        <div class="mt8 pl16">视频时长：<span class="text-active">{{ rightTask.duration }}</span></div>
-        <div class="mt8 pl16">清晰度：<span class="text-active">{{ formatQuality(rightTask.quality) }}</span></div>
-        <div class="mt8 pl16">播放：<span class="text-active">{{ rightTask.view }}</span></div>
-        <div class="mt8 pl16">弹幕：<span class="text-active">{{ rightTask.danmaku }}</span></div>
-        <div class="mt8 pl16">评论：<span class="text-active">{{ rightTask.reply }}</span></div>
+        <div class="mt8 pl16">Created: <span class="text-active">{{ dayjs(rightTask.createdTime).format('YYYY-MM-DD HH:mm:ss') }}</span></div>
+        <div class="mt8 pl16">Size: <span class="text-active">{{ formatVideoSize(rightTask.size) }}</span></div>
+        <div class="mt8 pl16">Duration: <span class="text-active">{{ rightTask.duration }}</span></div>
+        <div class="mt8 pl16">Quality: <span class="text-active">{{ formatQuality(rightTask.quality) }}</span></div>
+        <div class="mt8 pl16">Views: <span class="text-active">{{ rightTask.view }}</span></div>
+        <div class="mt8 pl16">Danmaku: <span class="text-active">{{ rightTask.danmaku }}</span></div>
+        <div class="mt8 pl16">Comments: <span class="text-active">{{ rightTask.reply }}</span></div>
       </div>
     </template>
   </div>
@@ -135,12 +135,12 @@ const playVideo = () => {
 }
 
 const reloadDownload = async () => {
-  console.log('重新下载')
+  console.log('Redownload')
   const { response } = await window.electron.openReloadVideoDialog(selected.value.length)
-  // 点击取消
+  // Clicked cancel
   if (!response) return
-  // 获取选中任务数据
-  const loading = message.loading('下载中...', 0)
+  // Get selected task data
+  const loading = message.loading('Downloading...', 0)
   let selectedTask: any[] = []
   selected.value.forEach(item => {
     const task = store.taskStore().getTask(item)
@@ -158,11 +158,11 @@ const reloadDownload = async () => {
     const { body, url } = await checkUrlRedirect(item.url)
     const videoInfo = await parseHtml(body, videoType, url)
     if (videoInfo === -1) continue
-    // 当前list只会存在一项
+    // Current list will only have one item
     const list = await getDownloadList(videoInfo, [item.curPage], item.quality)
     const taskList = addDownload(list)
     store.taskStore().setTask(taskList)
-    // 可以下载
+    // Can download
     if (taskList[0].status === 1) {
       window.electron.downloadVideo(taskList[0])
       store.baseStore().addDownloadingTaskCount(1)
@@ -190,13 +190,13 @@ const deleteVideos = async () => {
       }
     }
   })
-  // 点击取消
+  // Clicked cancel
   if (!response) return
-  // 删除记录
+  // Delete record
   store.taskStore().deleteTask(toRaw(selected.value))
-  // 删除文件
+  // Delete files
   if (checkboxChecked) window.electron.deleteVideos(filelist)
-  message.success('任务已删除')
+  message.success('Task deleted')
   if (taskListArray.value && taskListArray.value[0]) switchItem(taskListArray[0][0])
 }
 
@@ -212,7 +212,7 @@ onMounted(() => {
   switchItem(rightTaskId.value)
   taskListArray.value.forEach((item, index) => {
     if (item[0] === rightTaskId.value && index >= 3) {
-      // 滚动
+      // Scroll
       left.value.scrollTo({
         top: 83 * (index - 2)
       })

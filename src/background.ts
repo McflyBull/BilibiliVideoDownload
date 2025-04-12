@@ -18,22 +18,22 @@ const store = new Store({
 const isDevelopment = process.env.NODE_ENV !== 'production'
 let win: BrowserWindow
 
-// 设置软件系统菜单
+// Set software system menu
 const template: any = [
   {
     label: app.name,
     submenu: [
-      { label: '关于', role: 'about' },
-      { label: '缩小', role: 'minimize' },
-      { label: '退出', role: 'quit' }
+      { label: 'About', role: 'about' },
+      { label: 'Minimize', role: 'minimize' },
+      { label: 'Quit', role: 'quit' }
     ]
   },
   {
-    label: '操作',
+    label: 'Actions',
     submenu: [
-      { label: '全选', role: 'selectAll' },
-      { label: '复制', role: 'copy' },
-      { label: '粘贴', role: 'paste' }
+      { label: 'Select All', role: 'selectAll' },
+      { label: 'Copy', role: 'copy' },
+      { label: 'Paste', role: 'paste' }
     ]
   }
 ]
@@ -45,20 +45,20 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
 
-// 打开浏览器
+// Open browser
 ipcMain.on('open-browser', (event, url) => {
   shell.openExternal(url)
 })
 
-// 打开本地文件
+// Open local file
 ipcMain.on('open-path', (event, path) => {
   shell.openPath(path)
 })
 
-// 打开选择文件夹dialog
+// Open file dialog
 ipcMain.handle('open-dir-dialog', () => {
   const filePaths = dialog.showOpenDialogSync({
-    title: '选择下载地址',
+    title: 'Select download location',
     defaultPath: app.getPath('downloads'),
     properties: ['openDirectory']
   })
@@ -69,7 +69,7 @@ ipcMain.handle('open-dir-dialog', () => {
   }
 })
 
-// 打开文件夹
+// Open folder
 ipcMain.on('open-dir', (event, list) => {
   const fileDirs: string[] = []
   list.forEach((id: string) => {
@@ -81,7 +81,7 @@ ipcMain.on('open-dir', (event, list) => {
   })
 })
 
-// 发送http请求
+// Send http request
 ipcMain.handle('got', (event, url, option) => {
   return new Promise((resolve, reject) => {
     got(url, option)
@@ -95,7 +95,7 @@ ipcMain.handle('got', (event, url, option) => {
   })
 })
 
-// 发送http请求，得到buffer
+// Send http request, get buffer
 ipcMain.handle('got-buffer', (event, url, option) => {
   return new Promise((resolve, reject) => {
     got(url, option)
@@ -110,7 +110,7 @@ ipcMain.handle('got-buffer', (event, url, option) => {
   })
 })
 
-// electron-store 操作
+// electron-store operations
 ipcMain.handle('get-store', (event, path) => {
   return Promise.resolve(store.get(path))
 })
@@ -123,41 +123,41 @@ ipcMain.on('delete-store', (event, path) => {
   store.delete(path)
 })
 
-// 创建右键菜单
+// Create context menu
 ipcMain.handle('show-context-menu', (event, type: string) => {
   return new Promise((resolve, reject) => {
     const menuMap = {
       download: [
         {
-          label: '删除任务',
+          label: 'Delete task',
           type: 'normal',
           click: () => resolve('delete')
         },
         {
-          label: '重新下载',
+          label: 'Redownload',
           type: 'normal',
           click: () => resolve('reload')
         },
         {
-          label: '打开文件夹',
+          label: 'Open folder',
           type: 'normal',
           click: () => resolve('open')
         },
         {
-          label: '全选',
+          label: 'Select all',
           type: 'normal',
           click: () => resolve('selectAll')
         },
         {
-          label: '播放视频',
+          label: 'Play video',
           type: 'normal',
           click: () => resolve('play')
         }
       ],
       home: [
-        { label: '全选', role: 'selectAll' },
-        { label: '复制', role: 'copy' },
-        { label: '粘贴', role: 'paste' }
+        { label: 'Select all', role: 'selectAll' },
+        { label: 'Copy', role: 'copy' },
+        { label: 'Paste', role: 'paste' }
       ]
     }
     const template: any = menuMap[type]
@@ -166,15 +166,15 @@ ipcMain.handle('show-context-menu', (event, type: string) => {
   })
 })
 
-// 打开删除任务dialog
+// Open delete task dialog
 ipcMain.handle('open-delete-video-dialog', (event, taskCount) => {
   return new Promise((resolve, reject) => {
     dialog.showMessageBox(win, {
       type: 'info',
-      title: '提示',
-      message: `当前选中${taskCount}个任务，你确定要删除吗？`,
-      checkboxLabel: '同时删除文件',
-      buttons: ['取消', '删除']
+      title: 'Prompt',
+      message: `${taskCount} tasks selected, are you sure you want to delete?`,
+      checkboxLabel: 'Also delete files',
+      buttons: ['Cancel', 'Delete']
     })
       .then(res => {
         return resolve(res)
@@ -185,7 +185,7 @@ ipcMain.handle('open-delete-video-dialog', (event, taskCount) => {
   })
 })
 
-// 删除任务文件
+// Delete task files
 ipcMain.handle('delete-videos', (event, filePaths) => {
   for (const key in filePaths) {
     fs.removeSync(filePaths[key])
@@ -193,13 +193,13 @@ ipcMain.handle('delete-videos', (event, filePaths) => {
   return Promise.resolve('success')
 })
 
-// 下载任务
+// Download task
 ipcMain.on('download-video', (event, task: TaskData) => {
   const setting: SettingData = store.get('setting')
   downloadVideo(task, event, setting)
 })
 
-// 获取视频大小
+// Get video size
 ipcMain.handle('get-video-size', (event, id: string) => {
   const task = store.get(`taskList.${id}`)
   if (task && task.filePathList) {
@@ -219,24 +219,24 @@ ipcMain.handle('get-video-size', (event, id: string) => {
   }
 })
 
-// 关闭app
+// Close app
 ipcMain.on('close-app', () => {
   handleCloseApp()
 })
 
-// 最小化app
+// Minimize app
 ipcMain.on('minimize-app', () => {
   if (!win.isMinimized()) win.minimize()
 })
 
-// 打开删除任务dialog
+// Open delete task dialog
 ipcMain.handle('open-reload-video-dialog', (event, taskCount) => {
   return new Promise((resolve, reject) => {
     dialog.showMessageBox(win, {
       type: 'info',
-      title: '提示',
-      message: `当前选中${taskCount}个任务，你确定要重新下载吗？`,
-      buttons: ['取消', '下载']
+      title: 'Prompt',
+      message: `${taskCount} tasks selected, are you sure you want to redownload?`,
+      buttons: ['Cancel', 'Redownload']
     })
       .then(res => {
         return resolve(res)
@@ -247,7 +247,7 @@ ipcMain.handle('open-reload-video-dialog', (event, taskCount) => {
   })
 })
 
-// 保存弹幕文件
+// Save danmuku file
 ipcMain.on('save-danmuku-file', (event, content, path) => {
   fs.writeFile(path, content, { encoding: 'utf8' })
 })
@@ -300,7 +300,7 @@ function initStore () {
   if (!taskList) {
     store.set('taskList', {})
   }
-  // 存储store
+  // Store store
   win.webContents.on('did-finish-load', () => {
     win.webContents.send('init-store', {
       setting: store.get('setting'),
@@ -310,7 +310,7 @@ function initStore () {
 }
 
 function handleCloseApp () {
-  // 检查当前是否有下载中任务
+  // Check if there are any downloading tasks
   const taskList = store.get('taskList')
   let count = 0
   for (const key in taskList) {
@@ -323,9 +323,9 @@ function handleCloseApp () {
   }
   dialog.showMessageBox(win, {
     type: 'info',
-    title: '提示',
-    message: count ? `当前有${count}个任务正在下载中，关闭软件会导致任务下载失败，是否继续关闭软件？` : '是否关闭应用程序？',
-    buttons: ['取消', '关闭']
+    title: 'Prompt',
+    message: count ? `There are ${count} tasks downloading, closing the software may cause the tasks to fail to download. Do you want to continue closing the software?` : 'Do you want to close the application?',
+    buttons: ['Cancel', 'Close']
   })
     .then(res => {
       console.log(res);
@@ -360,17 +360,17 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
-  // 创建渲染进程
+  // Create render process
   createWindow()
-  // 初始化store
+  // Initialize store
   initStore()
-  // 监听win close
+  // Listen for win close
   win.on('close', event => {
     console.log('on win close')
     event.preventDefault()
     handleCloseApp()
   })
-  // 添加快捷键
+  // Add shortcuts
   globalShortcut.register('CommandOrControl+Shift+L', () => {
     const focusWin = BrowserWindow.getFocusedWindow()
     if (focusWin && focusWin.webContents.isDevToolsOpened()) {

@@ -4,7 +4,7 @@
       <img src="../assets/images/logo.png" alt="">
     </div>
     <div class="download-box">
-      <a-input v-model:value="videoUrl" size="large" placeholder="请输入视频地址" @keydown.enter="download" @click.right="showContextmenu">
+      <a-input v-model:value="videoUrl" size="large" placeholder="Please enter video URL" @keydown.enter="download" @click.right="showContextmenu">
         <template #addonAfter>
           <ArrowDownOutlined v-if="!loading" :style="{fontSize: '18px', color: '#ffffff'}" @click="download" />
           <LoadingOutlined v-else :style="{fontSize: '18px', color: '#ffffff'}" />
@@ -50,17 +50,17 @@ const download = async () => {
   console.log('download')
   loading.value = true
   if (!videoUrl.value) {
-    message.warn('请输入视频地址')
+    message.warn('Please enter video URL')
     loading.value = false
     return
   }
   const videoType = checkUrl(videoUrl.value)
   if (!videoType) {
-    message.error('请输入正确的视频地址')
+    message.error('Please enter a valid video URL')
     loading.value = false
     return
   }
-  // 检查登陆状态
+  // Check login status
   if (store.baseStore().allowLogin) {
     const status = await checkLogin(store.settingStore().SESSDATA)
     store.baseStore().setLoginStatus(status)
@@ -70,9 +70,9 @@ const download = async () => {
       return
     }
   }
-  // 检查是否有重定向
+  // Check for redirects
   const { body, url } = await checkUrlRedirect(videoUrl.value)
-  // 解析html
+  // Parse HTML
   try {
     const videoInfo = await parseHtml(body, videoType, url)
     loading.value = false
@@ -80,9 +80,9 @@ const download = async () => {
   } catch (error: any) {
     loading.value = false
     if (error === -1) {
-      message.error('解析错误或者不支持当前视频')
+      message.error('Parse error or this video is not supported')
     } else {
-      message.error(`解析错误：${error}`)
+      message.error(`Parse error: ${error}`)
     }
   }
 }

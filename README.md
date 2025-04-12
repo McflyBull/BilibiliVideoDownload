@@ -1,7 +1,7 @@
 <div align="center">
   <img src="./build/icons/256x256.png" alt="" width="128">
   <h1>BilibiliVideoDownload</h1>
-  <blockquote>跨平台下载bilibili视频桌面端软件，支持windows、macOS、Linux</blockquote>
+  <blockquote>Cross-platform desktop software for downloading Bilibili videos, supporting Windows, macOS, and Linux</blockquote>
 </div>
 
 <div align="center">
@@ -11,19 +11,19 @@
   <a><img src="https://img.shields.io/github/license/blogwy/BilibiliVideoDownload" alt="license"></a>
 </div>
 
-## 注意
+## Note
 
-* 软件不支持付费视频和地区限制视频，可能会报错
+* The software does not support paid videos and region-restricted videos, which may cause errors
 
-* 登录信息有过期时间，好像是半年
+* Login information has an expiration time, which seems to be about six months
 
-* 由于下载的音视频是分离的，项目使用ffmpeg合成导致安装包有点大(ffmpeg大约70+MB)
+* Due to the fact that the downloaded audio and video are separate, the project uses ffmpeg for merging, which makes the installation package a bit large (ffmpeg is about 70+ MB)
 
-## 安装
+## Installation
 
-到[releases](https://github.com/blogwy/BilibiliVideoDownload/releases)页面,下载对应平台安装包即可.下载视频时候会提示登录，登录后只会获取你的SESSDATA来用做下载，账号是普通账号最大支持下载1080P视频，大会员可以下载8K视频，不登录最大支持下载480P视频
+Go to the [releases](https://github.com/blogwy/BilibiliVideoDownload/releases) page and download the installation package for your platform. When downloading videos, you will be prompted to log in. After logging in, the software will only get your SESSDATA for downloads. A regular account supports downloading up to 1080P videos, VIP members can download 8K videos, and without login, the maximum supported download is 480P videos.
 
-## 演示
+## Preview
 
 ![1](./screenshots/1.png)
 ![2](./screenshots/2.png)
@@ -32,23 +32,23 @@
 ![5](./screenshots/5.png)
 
 
-## 功能
+## Features
 
-* [x] 下载普通视频
-* [x] 下载番剧视频
-* [x] 下载多P视频
-* [x] 下载电影(额外付费除外)
-* [x] 下载封面
-* [x] 下载字幕
-* [x] 下载弹幕
-* [x] 下载进度
-* [x] 基本视频信息
-* [x] 删除下载记录
-* [ ] 暂停/恢复下载
+* [x] Download regular videos
+* [x] Download anime videos
+* [x] Download multi-part videos
+* [x] Download movies (except those requiring extra payment)
+* [x] Download video covers
+* [x] Download subtitles
+* [x] Download danmaku
+* [x] Download progress
+* [x] Basic video information
+* [x] Delete download history
+* [ ] Pause/resume downloads
 
-## 开发
+## Development
 
-**提前自备梯子，因为electron electron-builder等依赖项需要从GitHub下载**
+**Make sure you have a VPN since dependencies like electron and electron-builder need to be downloaded from GitHub**
 
 ```bash
 git clone https://github.com/blogwy/BilibiliVideoDownload.git
@@ -61,124 +61,124 @@ yarn electron:serve
 
 yarn electron:build
 ```
-## 版本
+## Versions
 
 v3.3.3 `2022-07-02`
 
-1. 修复关闭软件事件不正常错误[issues/88](https://github.com/blogwy/BilibiliVideoDownload/issues/88)
-2. 下载列表右键添加播放视频功能[issues/86](https://github.com/blogwy/BilibiliVideoDownload/issues/86)
+1. Fixed abnormal close event error [issues/88](https://github.com/blogwy/BilibiliVideoDownload/issues/88)
+2. Added play video function with right-click in download list [issues/86](https://github.com/blogwy/BilibiliVideoDownload/issues/86)
 
 v3.3.2 `2022-06-04`
 
-1. 修复下载视频的音频码率错误，现在音频码率修改为当前最高音频码率。[issues/76](https://github.com/blogwy/BilibiliVideoDownload/issues/76)
-2. 修复更新弹窗点击按钮没反应问题[issues/83](https://github.com/blogwy/BilibiliVideoDownload/issues/83)
-3. 添加是否下载封面设置项[issues/81](https://github.com/blogwy/BilibiliVideoDownload/issues/81)
-4. 下载地址输入框加入复制/粘贴/全选右键菜单[issues/82](https://github.com/blogwy/BilibiliVideoDownload/issues/82)
+1. Fixed audio bitrate error when downloading videos, now using the highest available audio bitrate [issues/76](https://github.com/blogwy/BilibiliVideoDownload/issues/76)
+2. Fixed update popup button not responding [issues/83](https://github.com/blogwy/BilibiliVideoDownload/issues/83)
+3. Added settings option for whether to download cover [issues/81](https://github.com/blogwy/BilibiliVideoDownload/issues/81)
+4. Added copy/paste/select all right-click menu to download URL input box [issues/82](https://github.com/blogwy/BilibiliVideoDownload/issues/82)
 
 v3.3.1 `2022-05-28`
 
-1. 修复弹幕样式异常问题
+1. Fixed danmaku style abnormality issue
 
 v3.3.0 `2022-05-12`
 
-1. 升级vue3+typescript electron16
-2. 优化代码，使用contextBridge代替Node integration
-3. 添加手动输入SESSDATA功能
-4. 添加右键重新下载
-5. 修改下载文件夹/名格式为[px]视频名称-第一up主名称-bv号-uuid
-6. 下载页面添加滚动条
-7. 下载弹幕
+1. Upgraded to Vue3+TypeScript and Electron 16
+2. Optimized code, using contextBridge instead of Node integration
+3. Added manual SESSDATA input function
+4. Added re-download with right-click
+5. Changed download folder/name format to [px]VideoName-FirstUploaderName-bvNumber-uuid
+6. Added scroll bar to download page
+7. Download danmaku
 
 v3.2.0 `2022-02-26`
 
-1. 支持macOS arm
-2. 支持av号解析
+1. Support for macOS arm
+2. Support for AV number parsing
 
 v3.1.8 `2021-12-18`
 
-1. EP，SS视频(番剧、纪录片、电影),支持分P(批量)下载
+1. Support for EP, SS videos (anime, documentaries, movies), with multi-part (batch) download
 
 v3.1.7 `2021-12-11`
 
-1. 任务列表添加右键菜单
-2. 任务列表按住shift按键可以多选
-3. 支持8K视频
-4. 支持杜比视界
+1. Added right-click menu to task list
+2. Multiple selection in task list by holding shift key
+3. Support for 8K videos
+4. Support for Dolby Vision
 
 v3.1.6 `2021-11-06`
 
-1. 修复无法下载问题
-2. HDR视频支持
+1. Fixed download issues
+2. HDR video support
 
 v3.1.5 `2021-10-08`
 
-1. 修复无法删除的bug [issues/41](https://github.com/blogwy/BilibiliVideoDownload/issues/41)
-2. 新增回车键确认在主页
+1. Fixed cannot delete bug [issues/41](https://github.com/blogwy/BilibiliVideoDownload/issues/41)
+2. Added enter key confirmation on main page
 
 v3.1.4 `2021-09-24`
 
-1. 修复在升级版本后，可能会导致设置页面无法关闭问题 [issues/39](https://github.com/blogwy/BilibiliVideoDownload/issues/39)
-2. 设置页面新增是否下载到单独文件夹功能
+1. Fixed issue where settings page could not be closed after version upgrade [issues/39](https://github.com/blogwy/BilibiliVideoDownload/issues/39)
+2. Added option to download to separate folder in settings page
 
 v3.1.3 `2021-09-11`
 
-1. 修复在设置侧边栏登录bug
+1. Fixed login bug in settings sidebar
 
 v3.1.2 `2021-09-02`
 
-1. 修复up主多情况，排版出错的问题 [issues/36](https://github.com/blogwy/BilibiliVideoDownload/issues/36)
+1. Fixed layout issues when there are multiple uploaders [issues/36](https://github.com/blogwy/BilibiliVideoDownload/issues/36)
 
 v3.1.1 `2021-08-11`
 
-1. 多P视频新增全选功能
-2. 新增同时下载最大任务数设置(1~5)
+1. Added select all function for multi-part videos
+2. Added maximum concurrent download task setting (1~5)
 
 v3.1.0 `2021-06-29`
 
-1. 新增扫码登录获取cookie，不需要手动设置
-2. 新增下载字幕功能
+1. Added QR code login to get cookie, no need to set manually
+2. Added subtitle download function
 
 v3.0.6 `2021-05-22`
 
-添加多P视频批量下载，同时下载视频数建议不要超过5个，太多我没有测试过可能会卡死。
+Added batch download for multi-part videos. It's recommended not to download more than 5 videos at the same time, as too many may cause the program to freeze.
 
 v3.0.5 `2021-05-15`
 
-添加检查更新
+Added update checking
 
 v3.0.4 `2021-04-29`
 
-修复无法下载的bug
+Fixed download bug
 
 v3.0.1 `2021-03-03`
 
-增加错误提示
+Added error messages
 
 v3.0.0 `2021-02-21`
 
-全新GUI版本上线
+Brand new GUI version launched
 
 v2.1.0 `2019-09-12`
 
-添加了弹幕下载，以及弹幕反查用户
+Added danmaku download and user lookup via danmaku
 
 v2.0.2 `2019-06-19`
 
-添加了大会员清晰度的支持(前提是必须要有一个大会员的SESSDATA)
+Added support for VIP quality (requires SESSDATA from a VIP account)
 
 v2.0.1 `2019-03-29`
 
-添加了分P检测，分P下载功能
+Added multi-part detection and download function
 
 v2.0.0 `2019-03-24`
 
-Node.js重构，以前的在vuejs分支
+Rebuilt with Node.js, previous version in vuejs branch
 
-## 感谢
+## Acknowledgements
 
-* 特别感谢JetBrains为开源项目提供的免费许可证，申请地址：[https://www.jetbrains.com/zh-cn/community/opensource/#support](https://www.jetbrains.com/zh-cn/community/opensource/#support)
-* 感谢[bilibili-API-collect](https://github.com/SocialSisterYi/bilibili-API-collect)B站接口支持
-* 感谢[Bilibili-Evolved](https://github.com/the1812/Bilibili-Evolved)弹幕支持
+* Special thanks to JetBrains for providing free licenses for open source projects. Apply at: [https://www.jetbrains.com/community/opensource/#support](https://www.jetbrains.com/community/opensource/#support)
+* Thanks to [bilibili-API-collect](https://github.com/SocialSisterYi/bilibili-API-collect) for Bilibili API support
+* Thanks to [Bilibili-Evolved](https://github.com/the1812/Bilibili-Evolved) for danmaku support
 * [FFmpeg](https://ffmpeg.org/)
 * [Electron](https://www.electronjs.org/)
 * [Vue.js](https://vuejs.org/)

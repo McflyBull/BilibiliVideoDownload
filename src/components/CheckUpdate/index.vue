@@ -1,13 +1,13 @@
 <template>
   <a-modal
     :visible="visible"
-    title="有新版本了"
-    okText="更新"
-    cancelText="取消"
+    title="New Version Available"
+    okText="Update"
+    cancelText="Cancel"
     @cancel="cancel"
     @ok="handleOk">
-    <p>检查到新版本<a>v{{ newVersion }}</a>，当前版本<a>v{{ oldVersion }}</a>，安装新版本前请先卸载旧版本！</p>
-    <p>更新内容：{{ updateContent }}</p>
+    <p>New version <a>v{{ newVersion }}</a> detected, current version <a>v{{ oldVersion }}</a>. Please uninstall the old version before installing the new one!</p>
+    <p>Update content: {{ updateContent }}</p>
   </a-modal>
 </template>
 
@@ -52,7 +52,7 @@ const checkUpdate = async () => {
       visible.value = true
     }
   } catch (error) {
-    message.error(`检查更新失败：${error}`)
+    message.error(`Update check failed: ${error}`)
   }
 }
 

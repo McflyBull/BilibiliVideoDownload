@@ -1,5 +1,5 @@
 <template>
-  <a-config-provider :locale="zhCN">
+  <a-config-provider :locale="enUS">
     <TitleBar
       title="BilibiliVideoDownload"
       :isBackground="false"
@@ -19,17 +19,17 @@ import { ref, onMounted } from 'vue'
 import TitleBar from './components/TitleBar/index.vue'
 import TabBar from './components/TabBar/index.vue'
 import CheckUpdate from './components/CheckUpdate/index.vue'
-import zh_CN from 'ant-design-vue/es/locale/zh_CN'
+import en_US from 'ant-design-vue/es/locale/en_US'
 import dayjs from 'dayjs'
-import 'dayjs/locale/zh-cn'
+import 'dayjs/locale/en'
 import { pinia, store } from './store'
 import { checkLogin, addDownload } from './core/bilibili'
 import { downloadDanmaku } from './core/danmaku'
 import { SettingData, TaskData, TaskList } from './type'
 import { sleep } from './utils'
 
-dayjs.locale('zh-cn')
-const zhCN = ref(zh_CN)
+dayjs.locale('en')
+const enUS = ref(en_US)
 const checkUpdate = ref<any>(null)
 
 const onMinimize = () => {

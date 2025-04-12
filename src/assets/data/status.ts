@@ -1,26 +1,26 @@
 export default {
   0: {
-    label: '已完成',
+    label: 'Completed',
     value: 'success'
   },
   1: {
-    label: '视频下载中',
+    label: 'Downloading video',
     value: 'active'
   },
   2: {
-    label: '音频下载中',
+    label: 'Downloading audio',
     value: 'active'
   },
   3: {
-    label: '视频合成中',
+    label: 'Merging',
     value: 'active'
   },
   4: {
-    label: '排队中',
+    label: 'Queued',
     value: 'active'
   },
   5: {
-    label: '下载失败',
+    label: 'Download failed',
     value: 'exception'
   }
 }
