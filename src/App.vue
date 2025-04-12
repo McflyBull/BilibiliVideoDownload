@@ -1,7 +1,7 @@
 <template>
   <a-config-provider :locale="enUS">
     <TitleBar
-      title="BilibiliVideoDownload"
+      title="Video Downloader"
       :isBackground="false"
       :isMinimizable="true"
       :isMaximizable="false"
